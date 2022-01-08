@@ -13,6 +13,7 @@ This plugin integrates [Symflower CLI](https://symflower.com/en/products/symflow
 
     ```sh
     git clone https://github.com/symflower/symflower-kakoune
+    mkdir -p ~/.config/kak
     echo "source $PWD/symflower-kakoune/rc/symflower.kak" >> ~/.config/kak/kakrc
     ```
 
