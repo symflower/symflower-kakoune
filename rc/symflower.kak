@@ -35,13 +35,13 @@ define-command symflower-alternative-file -docstring 'Jump to the alternate file
 		altfile=${kak_buffile%.go}_symflower_test.go
 		test ! -f "$altfile" && echo "fail 'Symflower test file not found'" && exit
 		;;
-	(*SymflowerTest.java)
-		altfile=${kak_buffile%SymflowerTest.java}.java
-		test ! -f "$altfile" && echo "fail 'implementation file not found'" && exit
-		;;
 	(*.java)
 		altfile=${kak_buffile%.java}SymflowerTest.java
 		test ! -f "$altfile" && echo "fail 'Symflower test file not found'" && exit
+		;;
+	(*SymflowerTest.java)
+		altfile=${kak_buffile%SymflowerTest.java}.java
+		test ! -f "$altfile" && echo "fail 'implementation file not found'" && exit
 		;;
 	(*)
 		echo "fail 'alternative file not found'" && exit
