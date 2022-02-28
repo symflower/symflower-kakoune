@@ -4,7 +4,7 @@
 
 This plugin integrates [Symflower CLI](https://symflower.com/en/products/symflower-cli/) into the [Kakoune](https://kakoune.org) editor (version 2019.07.01 or later), so you can generate unit tests while you write code.
 
-![symflower-kakoune in action](doc/symflower-kakoune.png)
+[![Generate unit tests](doc/unit_tests.gif)](https://asciinema.org/a/QbvyPTOOyfu5FA713LV0ZuquY)
 
 ## Installation
 
@@ -46,14 +46,21 @@ kak Copy.java -e symflower
 
 This should write unit tests for `Copy.java` to `CopySymflowerTest.java`.
 
+![symflower-kakoune in action](doc/symflower-kakoune.png)
+
 ## Usage
 
 - The `symflower` command generates tests for source files in the current directory.
 - The `symflower-unit-tests` command generates tests for functions at the main selection.
-- The `symflower-unit-test-skeletons` command generates test skeletons for functions at the main selection.
+- The `symflower-unit-test-skeletons` command generates test skeletons for functions at the main selection:
+
+[![Generate unit test skeletons](doc/unit_test_skeletons.gif)](https://asciinema.org/a/FA0Gf6znIlSzrw2Z2pRyfezGN)
+
 - The `symflower-alternative-file` command jumps between a source file and the generated test file.
 
 The `symflower` [user mode](https://github.com/mawww/kakoune/blob/master/doc%2Fpages%2Fmodes.asciidoc#user-modes) gives quick access to commonly used commands:
+
+[![Generate unit tests (shortcuts)](doc/shortcuts.gif)](https://asciinema.org/a/LOZWpbmpKtnrafj3NjXpKIr16)
 
 ## Supported Languages
 
