@@ -49,6 +49,8 @@ This should write unit tests for `Copy.java` to `CopySymflowerTest.java`.
 ## Usage
 
 - The `symflower` command generates tests for source files in the current directory.
+- The `symflower-unit-tests` command generates tests for functions at the main selection.
+- The `symflower-unit-test-skeletons` command generates test skeletons for functions at the main selection.
 - The `symflower-alternative-file` command jumps between a source file and the generated test file.
 
 ## Supported Languages
