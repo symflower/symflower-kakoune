@@ -53,6 +53,8 @@ This should write unit tests for `Copy.java` to `CopySymflowerTest.java`.
 - The `symflower-unit-test-skeletons` command generates test skeletons for functions at the main selection.
 - The `symflower-alternative-file` command jumps between a source file and the generated test file.
 
+The `symflower` [user mode](https://github.com/mawww/kakoune/blob/master/doc%2Fpages%2Fmodes.asciidoc#user-modes) gives quick access to commonly used commands:
+
 ## Supported Languages
 
 -   Go 1.16

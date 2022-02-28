@@ -85,5 +85,11 @@ define-command symflower-alternative-file -docstring 'Jump to the alternate file
 		echo "fail 'alternative file not found'" && exit
 		;;
 	esac
-	printf "edit -- '%s'" "$(printf %s "$altfile" | sed "s/'/''/g")"
+	printf "edit! -existing -- '%s'" "$(printf %s "$altfile" | sed "s/'/''/g")"
 }}
+
+declare-user-mode symflower
+map global symflower a %{: symflower-alternative-file<ret>} -docstring "implementation ←→ Symflower test"
+map global symflower t %{: symflower-unit-tests<ret>} -docstring "generate unit tests for current buffer"
+map global symflower k %{: symflower-unit-test-skeletons<ret>} -docstring "generate unit test skeletons for current buffer"
+map global symflower u %{: buffer *symflower*<ret>} -docstring "view output"
