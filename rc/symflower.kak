@@ -5,7 +5,12 @@ Any arguments are forwarded to the 'symflower' command.
 } %{ evaluate-commands %sh{
 	output=$(mktemp -d "${TMPDIR:-/tmp}"/symflower-kakoune.XXXXXXXX)/fifo
 	mkfifo ${output}
-	( symflower "$@" > ${output} 2>&1 & ) >/dev/null 2>&1 </dev/null
+	(
+		(
+			printf %s\\n "\$ symflower $*"
+			symflower "$@"
+		) > ${output} 2>&1 &
+	) >/dev/null 2>&1 </dev/null
 
 	printf %s\\n "evaluate-commands -draft %{
 		edit! -fifo ${output} -scroll *symflower*
