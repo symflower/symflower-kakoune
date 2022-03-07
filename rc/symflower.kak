@@ -27,7 +27,7 @@ define-command symflower-disable -docstring "Disable unit test generation on sav
 }
 
 define-command symflower-alternative-file -docstring 'Jump to the alternate file (implementation ↔ Symflower test)' %{ evaluate-commands %sh{
-	case "$kak_buffile" in
+	case "$kak_buffile" in # REMARK Cases are ordered to match specific extensions first and general language files last.
 	(*_symflower_test.go)
 		altfile=${kak_buffile%_symflower_test.go}.go
 		test ! -f "$altfile" && echo "fail 'implementation file not found'" && exit
@@ -40,13 +40,13 @@ define-command symflower-alternative-file -docstring 'Jump to the alternate file
 		altfile=${kak_buffile%.go}_symflower_test.go
 		test ! -f "$altfile" && echo "fail 'Symflower test file not found'" && exit
 		;;
-	(*.java)
-		altfile=${kak_buffile%.java}SymflowerTest.java
-		test ! -f "$altfile" && echo "fail 'Symflower test file not found'" && exit
-		;;
 	(*SymflowerTest.java)
 		altfile=${kak_buffile%SymflowerTest.java}.java
 		test ! -f "$altfile" && echo "fail 'implementation file not found'" && exit
+		;;
+	(*.java)
+		altfile=${kak_buffile%.java}SymflowerTest.java
+		test ! -f "$altfile" && echo "fail 'Symflower test file not found'" && exit
 		;;
 	(*)
 		echo "fail 'alternative file not found'" && exit
