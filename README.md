@@ -23,11 +23,6 @@ This plugin integrates [Symflower CLI](https://symflower.com/en/products/symflow
     plug symflower/symflower-kakoune
     ```
 
-## Usage
-
-- The `symflower` command generates tests for source files in the current directory.
-- The `symflower-alternative-file` command jumps between a source file and the generated test file.
-
 ## Quick Start
 
 Create a new directory and put the following file `Copy.java` in it:
@@ -50,6 +45,11 @@ kak Copy.java -e symflower
 ```
 
 This should write unit tests for `Copy.java` to `CopySymflowerTest.java`.
+
+## Usage
+
+- The `symflower` command generates tests for source files in the current directory.
+- The `symflower-alternative-file` command jumps between a source file and the generated test file.
 
 ## Supported Languages
 
