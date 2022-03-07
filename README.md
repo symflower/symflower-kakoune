@@ -27,8 +27,6 @@ This plugin integrates [Symflower CLI](https://symflower.com/en/products/symflow
 
 - The `symflower` command generates tests for source files in the current directory.
 - The `symflower-alternative-file` command jumps between a source file and the generated test file.
-- The `symflower-enable` command enables unit test generation on save.
-- The `symflower-disable` command disables unit test generation on save (default).
 
 ## Quick Start
 

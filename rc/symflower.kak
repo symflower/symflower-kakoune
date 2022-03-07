@@ -18,14 +18,6 @@ Any arguments are forwarded to the 'symflower' command.
 	}"
 }}
 
-define-command symflower-enable -docstring "Enable unit test generation on save" %{
-	hook -group symflower global BufWritePost .*[.](go|java) symflower
-}
-
-define-command symflower-disable -docstring "Disable unit test generation on save" %{
-	remove-hooks global symflower
-}
-
 define-command symflower-alternative-file -docstring 'Jump to the alternate file (implementation ↔ Symflower test)' %{ evaluate-commands %sh{
 	case "$kak_buffile" in # REMARK Cases are ordered to match specific extensions first and general language files last.
 	(*_symflower_test.go)
