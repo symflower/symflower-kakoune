@@ -18,12 +18,45 @@ Any arguments are forwarded to the 'symflower' command.
 	}"
 }}
 
-define-command symflower-enable -docstring "Enable unit test generation on save" %{
-	hook -group symflower global BufWritePost .*[.](go|java) symflower
+define-command symflower-unit-tests -params .. -docstring %{symflower-unit-tests [<args>...]: generate unit tests for the functions at the main selection
+
+Any arguments are forwarded to the 'symflower unit-tests' command.
+} %{
+	write
+	evaluate-commands %sh{
+		quote() {
+			for arg; do {
+				printf " '%s'" "$(printf %s "$arg" | sed "s/'/''/g")"
+			} done
+		}
+		workspace=${kak_buffile%/*}
+		cursor_location=$(echo "${kak_selection_desc}" | sed 's/[.]/:/g; s/,/-/')
+		quote symflower unit-tests --workspace "${workspace}" "${kak_buffile#$workspace/}:${cursor_location}" "$@"
+		quote "${kak_buffile#$workspace/}"
+		echo
+		echo "try symflower-alternative-file"
+	}
 }
 
-define-command symflower-disable -docstring "Disable unit test generation on save" %{
-	remove-hooks global symflower
+define-command symflower-unit-test-skeletons -params .. -docstring %{symflower-unit-test-skeletons [<args>...]: generate unit test skeletons for the functions at the main selection
+
+Any arguments are forwarded to the 'symflower unit-test-skeletons' command.
+} %{
+	write
+	evaluate-commands %sh{
+		quote() {
+			for arg; do {
+				printf " '%s'" "$(printf %s "$arg" | sed "s/'/''/g")"
+			} done
+		}
+		workspace=${kak_buffile%/*}
+		cursor_location=$(echo "${kak_selection_desc}" | sed 's/[.]/:/g; s/,/-/')
+		output=$(symflower unit-test-skeletons --workspace "${workspace}" "${kak_buffile#$workspace/}:${cursor_location}" "$@" 2>&1)
+		location=$(printf %s "$output" | sed -nE '/^[^:]+: (generated|updated) test at (.*)/{s/^.* at (.*:[0-9]+:[0-9]+)$/\1/;p}')
+		filename=$(printf %s "$location" | sed -E 's/^(.*):[0-9]+:[0-9]+$/\1/')
+		coordinates=$(printf %s "$location" | sed -E 's/^.*:([0-9]+):([0-9]+)$/\1 \2/')
+		printf "edit! -existing -- %s $coordinates" "$(quote "$workspace/$filename")"
+	}
 }
 
 define-command symflower-alternative-file -docstring 'Jump to the alternate file (implementation ↔ Symflower test)' %{ evaluate-commands %sh{
@@ -52,5 +85,11 @@ define-command symflower-alternative-file -docstring 'Jump to the alternate file
 		echo "fail 'alternative file not found'" && exit
 		;;
 	esac
-	printf "edit -- '%s'" "$(printf %s "$altfile" | sed "s/'/''/g")"
+	printf "edit! -existing -- '%s'" "$(printf %s "$altfile" | sed "s/'/''/g")"
 }}
+
+declare-user-mode symflower
+map global symflower a %{: symflower-alternative-file<ret>} -docstring "implementation ←→ Symflower test"
+map global symflower t %{: symflower-unit-tests<ret>} -docstring "generate unit tests for current buffer"
+map global symflower k %{: symflower-unit-test-skeletons<ret>} -docstring "generate unit test skeletons for current buffer"
+map global symflower u %{: buffer *symflower*<ret>} -docstring "view output"
